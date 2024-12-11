@@ -1,22 +1,41 @@
+<div class="login-container">
+  <h1>Login</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        formControlName="userName"
+        placeholder="Enter your username"
+        required
+      />
+      <mat-error *ngIf="form.controls['userName'].hasError('required')">
+        Username is required.
+      </mat-error>
+    </mat-form-field>
 
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        placeholder="Enter your password"
+        required
+      />
+      <mat-error *ngIf="form.controls['password'].hasError('required')">
+        Password is required.
+      </mat-error>
+    </mat-form-field>
 
-<div class="login">
-    <h1>Login</h1>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  
-        <mat-form-field>
-            <mat-label>Name:</mat-label>
-            <input matInput formControlName="userName" required="required" placeholder="Enter user name">
-        </mat-form-field>
-  
-        <mat-form-field>
-            <mat-label>Password:</mat-label>
-            <input matInput type="password" formControlName="password" required="required" placeholder="Enter password">
-        </mat-form-field>
-  
-        <div>
-            <button mat-flat-button color="primary" type="submit">Login</button>
-            <button mat-flat-button color="secondary" [routerLink]="['/']">Cancel</button>
-        </div>
-    </form>
-  </div>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div class="form-actions">
+      <button mat-flat-button type="submit" [disabled]="form.invalid">
+        Login
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,17 +1,20 @@
 <header>
-    <mat-toolbar color="primary">
-        <button mat-icon-button [routerLink]="['/']">
-          <mat-icon>home</mat-icon>
-        </button>
-  
-        <a mat-flat-button color="primary" [routerLink]="['/countries']">Countries</a>
-        <a mat-flat-button color="primary" [routerLink]="['/cities']">Cities</a>
-        <span class="separator"></span>
-        @if (loggedIn) {
-          <a mat-flat-button color="primary" (click) = "onLogout()">Logout</a>
-        } @else {
-          <a mat-flat-button color="primary" [routerLink]="['/login']">Login</a>
-        }
-        
-    </mat-toolbar>
+  <mat-toolbar color="primary">
+    <!-- Home Button -->
+    <button mat-icon-button [routerLink]="['/']">
+      <mat-icon>home</mat-icon>
+    </button>
+
+    <!-- Movies and Actors Links -->
+    <a mat-flat-button color="primary" [routerLink]="['/movies']">Movies</a>
+    <a mat-flat-button color="primary" [routerLink]="['/all-actors']">Actors</a>
+    <span class="separator"></span>
+
+    <!-- Login/Logout Toggle -->
+    @if (isLoggedIn) {
+    <button mat-flat-button color="primary" (click)="onLogout()">Logout</button>
+    } @else {
+    <a mat-flat-button color="primary" [routerLink]="['/login']">Login</a>
+    }
+  </mat-toolbar>
 </header>
