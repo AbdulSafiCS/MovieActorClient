@@ -21,7 +21,6 @@ export class ActorsComponent implements OnInit {
   ngOnInit(): void {
     const movieId = this.route.snapshot.paramMap.get('id');
     if (movieId) {
-      console.log('Fetching actors for Movie ID:', movieId); // Debugging log
       this.getActorsByMovieId(+movieId);
     }
   }
@@ -31,14 +30,12 @@ export class ActorsComponent implements OnInit {
       .get<Actor[]>(`${environment.baseUrl}api/Movies/${movieId}/actors`)
       .subscribe({
         next: (actors) => {
-          console.log('Actors API Response:', actors); // Log the response
           if (actors && actors.length > 0) {
             this.movieTitle = actors[0].movieTitle || 'Unknown Movie';
           } else {
             this.movieTitle = 'No Movie Found';
           }
           this.actors = actors;
-          console.log('Actors API Response:', actors);
         },
         error: (err) => {
           console.error('Error fetching actors:', err);

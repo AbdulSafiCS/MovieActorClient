@@ -23,11 +23,9 @@ export class AllActorsComponent implements OnInit {
   getAllActors(): void {
     this.http.get<Actor[]>(`${environment.baseUrl}api/Actors`).subscribe({
       next: (actors) => {
-        console.log('All Actors API Response:', actors);
         this.actors = actors;
       },
       error: (err) => {
-        console.error('Error fetching all actors:', err);
         this.actors = [];
       },
     });
@@ -36,8 +34,6 @@ export class AllActorsComponent implements OnInit {
     if (confirm('Are you sure you want to delete this actor?')) {
       this.http.delete(`${environment.baseUrl}api/Actors/${id}`).subscribe({
         next: () => {
-          console.log(`Actor with ID ${id} deleted successfully.`);
-          // Update the actors list by filtering out the deleted actor
           this.actors = this.actors.filter((actor) => actor.id !== id);
         },
         error: (err) => {

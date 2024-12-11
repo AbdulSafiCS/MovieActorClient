@@ -40,7 +40,6 @@ export class EditMovieComponent implements OnInit {
     const movieIdParam = this.route.snapshot.paramMap.get('id');
     if (movieIdParam) {
       this.movieId = +movieIdParam;
-      console.log('Movie ID:', this.movieId);
       this.loadMovieDetails(this.movieId);
     }
   }
@@ -48,7 +47,6 @@ export class EditMovieComponent implements OnInit {
   loadMovieDetails(movieId: number): void {
     this.http.get(`${environment.baseUrl}api/Movies/${movieId}`).subscribe({
       next: (movie: any) => {
-        console.log('Movie Details:', movie);
         this.editMovieForm.patchValue({
           title: movie.title,
           releaseDate: movie.releaseDate,
@@ -67,8 +65,6 @@ export class EditMovieComponent implements OnInit {
         ...this.editMovieForm.value,
         actors: [],
       };
-
-      console.log('Payload being sent:', updatedMovie);
 
       this.http
         .put(`${environment.baseUrl}api/Movies/${this.movieId}`, updatedMovie)
