@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { Actor } from './actors';
 
 @Component({
@@ -26,22 +26,21 @@ export class ActorsComponent implements OnInit {
   }
 
   getActorsByMovieId(movieId: number): void {
-    this.http
-      .get<Actor[]>(`${environment.baseUrl}api/Movies/${movieId}/actors`)
-      .subscribe({
-        next: (actors) => {
-          if (actors && actors.length > 0) {
-            this.movieTitle = actors[0].movieTitle || 'Unknown Movie';
-          } else {
-            this.movieTitle = 'No Movie Found';
-          }
-          this.actors = actors;
-        },
-        error: (err) => {
-          console.error('Error fetching actors:', err);
-          this.movieTitle = 'Error Fetching Data';
-          this.actors = [];
-        },
-      });
+    var url = environment.baseUrl + `api/Movies/${movieId}/actors`;
+    this.http.get<Actor[]>(url).subscribe({
+      next: (actors) => {
+        if (actors && actors.length > 0) {
+          this.movieTitle = actors[0].movieTitle || 'Unknown Movie';
+        } else {
+          this.movieTitle = 'No Movie Found';
+        }
+        this.actors = actors;
+      },
+      error: (err) => {
+        console.error('Error fetching actors:', err);
+        this.movieTitle = 'Error Fetching Data';
+        this.actors = [];
+      },
+    });
   }
 }

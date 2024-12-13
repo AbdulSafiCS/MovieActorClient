@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -27,7 +27,8 @@ export class MovieComponent implements OnInit {
   }
 
   getMovies(): void {
-    this.http.get<any[]>(`${environment.baseUrl}api/Movies`).subscribe({
+    var url = environment.baseUrl + 'api/Movies';
+    this.http.get<any[]>(url).subscribe({
       next: (result) => {
         this.movies = result;
       },
